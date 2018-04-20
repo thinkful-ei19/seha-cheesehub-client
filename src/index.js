@@ -1,8 +1,17 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
 import registerServiceWorker from './registerServiceWorker';
+import { Provider } from 'react-redux';
+import CheeseList from './component/cheese-list';
+import {createStore, applyMiddleware} from 'redux';
+import thunk from 'redux-thunk';
+import { cheeseReducer } from './reducers/cheese';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+const store = createStore(cheeseReducer, applyMiddleware(thunk));
+
+ReactDOM.render(
+    <Provider store={store}>
+        <CheeseList />
+    </Provider>, document.getElementById('root')
+    );
 registerServiceWorker();
